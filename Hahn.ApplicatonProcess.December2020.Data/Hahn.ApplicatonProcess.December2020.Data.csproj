@@ -5,11 +5,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Applicants\Commands\**" />
+    <Compile Remove="Applicants\Queries\**" />
+    <Compile Remove="Common\**" />
+    <EmbeddedResource Remove="Applicants\Commands\**" />
+    <EmbeddedResource Remove="Applicants\Queries\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <None Remove="Applicants\Commands\**" />
+    <None Remove="Applicants\Queries\**" />
+    <None Remove="Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Applicants\IApplicantsApi.cs" />
+    <Compile Remove="DependencyInjection.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Hahn.ApplicatonProcess.December2020.Domain\Hahn.ApplicatonProcess.December2020.Domain.csproj" />
   </ItemGroup>
 
 </Project>

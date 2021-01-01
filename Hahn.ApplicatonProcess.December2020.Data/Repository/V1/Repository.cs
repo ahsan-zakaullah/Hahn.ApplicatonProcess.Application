@@ -7,18 +7,18 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
-        private readonly ApplicantDBContext _customerContext;
+        private readonly ApplicantDBContext _applicantContext;
 
-        public Repository(ApplicantDBContext customerContext)
+        public Repository(ApplicantDBContext applicantContext)
         {
-            _customerContext = customerContext;
+            _applicantContext = applicantContext;
         }
 
         public IQueryable<TEntity> GetAll()
         {
             try
             {
-                return _customerContext.Set<TEntity>();
+                return _applicantContext.Set<TEntity>();
             }
             catch (Exception)
             {
@@ -35,8 +35,8 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 
             try
             {
-                await _customerContext.AddAsync(entity);
-                await _customerContext.SaveChangesAsync();
+                await _applicantContext.AddAsync(entity);
+                await _applicantContext.SaveChangesAsync();
 
                 return entity;
             }
@@ -55,8 +55,8 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 
             try
             {
-                _customerContext.Update(entity);
-                await _customerContext.SaveChangesAsync();
+                _applicantContext.Update(entity);
+                await _applicantContext.SaveChangesAsync();
 
                 return entity;
             }
