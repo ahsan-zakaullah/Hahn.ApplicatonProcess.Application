@@ -10,5 +10,6 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
         Task<TEntity> AddAsync(TEntity entity);
 
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task<bool> DeleteAsync(TEntity entity);
     }
 }

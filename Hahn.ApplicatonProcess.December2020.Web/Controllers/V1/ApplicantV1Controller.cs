@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Command;
@@ -23,7 +24,20 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
             _mapper = mapper;
             _mediator = mediator;
         }
-      
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Applicant>>> GetApplicantById()
+        {
+            var response = await Mediator.Send(new GetApplicantByIdQuery
+            {
+                Id = 1 // TODO: need to get value from parameter
+            }
+            );
+            return Ok(response);
+        }
+
+
         /// <summary>
         /// Action to create a new applicant in the database.
         /// </summary>
@@ -87,5 +101,44 @@ namespace Hahn.ApplicatonProcess.December2020.Web.Controllers.V1
                 return BadRequest(ex.Message);
             }
         }
+
+
+        /// <summary>
+        /// Action to update an existing applicant
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the updated applicant</returns>
+        /// /// <response code="200">Returned true if the applicant was deleted</response>
+        /// /// <response code="400">Returned if the model couldn't be parsed or the applicant couldn't be found</response>
+        /// /// <response code="422">Returned when the validation failed</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> Delete(int id)
+        {
+            try
+            {
+                var applicant = await _mediator.Send(new GetApplicantByIdQuery
+                {
+                    Id = id
+                });
+
+                if (applicant == null)
+                {
+                    return BadRequest($"No applicant found with the id {id}");
+                }
+
+                return await _mediator.Send(new DeleteApplicantCommand
+                {
+                    Applicant = applicant
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Database
 {
-    public class ApplicantDBContext : DbContext
+    public class ApplicantDbContext : DbContext
     {
+
     }
 }

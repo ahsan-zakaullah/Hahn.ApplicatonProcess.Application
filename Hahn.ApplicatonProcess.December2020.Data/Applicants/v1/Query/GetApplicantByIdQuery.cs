@@ -1,5 +1,4 @@
-﻿using System;
-using Hahn.ApplicatonProcess.December2020.Domain.Entities;
+﻿using Hahn.ApplicatonProcess.December2020.Domain.Entities;
 using MediatR;
 
 namespace Hahn.ApplicatonProcess.December2020.Data.Applicants.v1.Query

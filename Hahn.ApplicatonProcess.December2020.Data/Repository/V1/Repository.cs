@@ -7,9 +7,9 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
-        private readonly ApplicantDBContext _applicantContext;
+        private readonly ApplicantDbContext _applicantContext;
 
-        public Repository(ApplicantDBContext applicantContext)
+        public Repository(ApplicantDbContext applicantContext)
         {
             _applicantContext = applicantContext;
         }
@@ -50,7 +50,7 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
         {
             if (entity == null)
             {
-                throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+                throw new ArgumentNullException($"{nameof(UpdateAsync)} entity must not be null");
             }
 
             try
@@ -59,6 +59,26 @@ namespace Hahn.ApplicatonProcess.December2020.Data.Repository.V1
                 await _applicantContext.SaveChangesAsync();
 
                 return entity;
+            }
+            catch (Exception)
+            {
+                throw new Exception($"{nameof(entity)} could not be updated");
+            }
+        }
+
+        public async Task<bool> DeleteAsync(TEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException($"{nameof(DeleteAsync)} entity must not be null");
+            }
+
+            try
+            {
+                _applicantContext.Remove(entity);
+                await _applicantContext.SaveChangesAsync();
+
+                return true;
             }
             catch (Exception)
             {
